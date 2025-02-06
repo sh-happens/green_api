@@ -34,9 +34,8 @@ const LoginForm: React.FC = () => {
     try {
       login(idInstance, apiTokenInstance);
       navigate('/chat');
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      setError('Failed to authenticate. Please check your credentials.');
+      setError(`Failed to authenticate. Please check your credentials. ${err}`);
     } finally {
       setIsLoading(false);
     }
@@ -47,10 +46,10 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-lg">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="w-96 p-8 bg-white rounded-lg shadow-sm">
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-center text-gray-900">
             WhatsApp Web Clone
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
@@ -58,38 +57,31 @@ const LoginForm: React.FC = () => {
           </p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="idInstance" className="sr-only">
-                ID Instance
-              </label>
-              <input
-                id="idInstance"
-                name="idInstance"
-                type="text"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="ID Instance"
-                value={idInstance}
-                onChange={(e) => handleInputChange(e, setIdInstance)}
-              />
-            </div>
-            <div>
-              <label htmlFor="apiTokenInstance" className="sr-only">
-                API Token Instance
-              </label>
-              <input
-                id="apiTokenInstance"
-                name="apiTokenInstance"
-                type="password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="API Token Instance"
-                value={apiTokenInstance}
-                onChange={(e) => handleInputChange(e, setApiTokenInstance)}
-              />
-            </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              id="idInstance"
+              name="idInstance"
+              type="text"
+              required
+              className="w-full px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
+              placeholder="ID Instance"
+              value={idInstance}
+              onChange={(e) => handleInputChange(e, setIdInstance)}
+            />
+          </div>
+
+          <div>
+            <input
+              id="apiTokenInstance"
+              name="apiTokenInstance"
+              type="password"
+              required
+              className="w-full px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
+              placeholder="API Token Instance"
+              value={apiTokenInstance}
+              onChange={(e) => handleInputChange(e, setApiTokenInstance)}
+            />
           </div>
 
           {error && (
@@ -98,15 +90,13 @@ const LoginForm: React.FC = () => {
             </div>
           )}
 
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-green-400"
-            >
-              {isLoading ? 'Connecting...' : 'Connect to WhatsApp'}
-            </button>
-          </div>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded transition-colors duration-200 disabled:bg-green-400"
+          >
+            {isLoading ? 'Connecting...' : 'Connect to WhatsApp'}
+          </button>
         </form>
       </div>
     </div>

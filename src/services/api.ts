@@ -1,8 +1,8 @@
 import axios from "axios"
 import { Credentials } from "../types/auth"
 
-const createApiInstance = (credentials: Credentials) => {
-  const baseURL = `https://${credentials.idInstance}.api.greenapi.com`
+const createApiInstance = () => {
+  const baseURL = 'https://api.green-api.com'
 
   return axios.create({
     baseURL,
@@ -15,7 +15,7 @@ const createApiInstance = (credentials: Credentials) => {
 
 export const apiService = {
   sendMessage: async (credentials: Credentials, phoneNumber: string, message: string) => {
-    const api = createApiInstance(credentials)
+    const api = createApiInstance()
     return api.post(
       `/waInstance${credentials.idInstance}/sendMessage/${credentials.apiTokenInstance}`,
       {
@@ -26,14 +26,14 @@ export const apiService = {
   },
 
   receiveNotification: async (credentials: Credentials) => {
-    const api = createApiInstance(credentials);
+    const api = createApiInstance();
     return api.get(
       `/waInstance${credentials.idInstance}/receiveNotification/${credentials.apiTokenInstance}`
     );
   },
 
   deleteNotification: async (credentials: Credentials, receiptId: number) => {
-    const api = createApiInstance(credentials);
+    const api = createApiInstance();
     return api.delete(
       `/waInstance${credentials.idInstance}/deleteNotification/${credentials.apiTokenInstance}/${receiptId}`
     );
