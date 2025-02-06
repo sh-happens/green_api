@@ -47,7 +47,7 @@ export const useMessages = (activeChat: string | null) => {
   }, [credentials, activeChat, isPolling]);
 
   useEffect(() => {
-    const pollInterval = setInterval(startPolling, 5000);
+    const pollInterval = setInterval(startPolling, 500);
     return () => clearInterval(pollInterval);
   }, [startPolling]);
 

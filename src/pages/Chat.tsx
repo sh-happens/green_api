@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useMessages } from '../hooks/useMessages';
 
@@ -20,7 +20,7 @@ const Chat: React.FC = () => {
   const [chats, setChats] = useState<Record<string, Chat>>({})
   const [activeChat, setActiveChat] = useState<string | null>(null);
   const [newMessage, setNewMessage] = useState<string>('');
-  const { sendMessage } = useMessages(activeChat);
+  const { sendMessage, messages: incomingMessages } = useMessages(activeChat);
 
   const handleStartChat = (e: FormEvent) => {
     e.preventDefault();
@@ -58,6 +58,18 @@ const Chat: React.FC = () => {
       console.error('Failed to send message:', error);
     }
   };
+
+  useEffect(() => {
+    if (activeChat && incomingMessages) {
+      setChats(prev => ({
+        ...prev,
+        [activeChat]: {
+          ...prev[activeChat],
+          messages: incomingMessages // Update with the latest messages from the hook
+        }
+      }));
+    }
+  }, [activeChat, incomingMessages]);
 
   const activeMessages = activeChat ? chats[activeChat]?.messages : [];
 
