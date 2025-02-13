@@ -65,7 +65,7 @@ const Chat: React.FC = () => {
         ...prev,
         [activeChat]: {
           ...prev[activeChat],
-          messages: incomingMessages // Update with the latest messages from the hook
+          messages: incomingMessages
         }
       }));
     }
