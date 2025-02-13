@@ -17,7 +17,7 @@ export const apiService = {
   sendMessage: async (credentials: Credentials, phoneNumber: string, message: string) => {
     const api = createApiInstance()
     return api.post(
-      `/waInstance${credentials.idInstance}/sendMessage/${credentials.apiTokenInstance}`,
+      `/waInstance${credentials.idInstance}/sendMessage/${credentials.apiTokenInstance}/`,
       {
         chatId: `${phoneNumber}@c.us`,
         message
@@ -28,14 +28,14 @@ export const apiService = {
   receiveNotification: async (credentials: Credentials) => {
     const api = createApiInstance();
     return api.get(
-      `/waInstance${credentials.idInstance}/receiveNotification/${credentials.apiTokenInstance}`
+      `/waInstance${credentials.idInstance}/receiveNotification/${credentials.apiTokenInstance}/`
     );
   },
 
   deleteNotification: async (credentials: Credentials, receiptId: number) => {
     const api = createApiInstance();
     return api.delete(
-      `/waInstance${credentials.idInstance}/deleteNotification/${credentials.apiTokenInstance}/${receiptId}`
+      `/waInstance${credentials.idInstance}/deleteNotification/${credentials.apiTokenInstance}/${receiptId}/`
     );
   }
 }
